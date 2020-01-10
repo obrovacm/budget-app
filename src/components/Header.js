@@ -15,9 +15,6 @@ const Header = () => (
     <NavLink to="/create" activeClassName="is-active" className="nav-link">
       create
     </NavLink>
-    <NavLink to="/edit" activeClassName="is-active" className="nav-link">
-      edit
-    </NavLink>
     <NavLink to="/help" activeClassName="is-active" className="nav-link">
       help
     </NavLink>
