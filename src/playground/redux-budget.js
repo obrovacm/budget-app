@@ -1,19 +1,103 @@
 import { createStore, combineReducers } from "redux";
+import uuid from "uuid";
 
-const demoState = {
-  expenses: [
-    {
-      id: "as;ldfkj",
-      description: "January rent",
-      note: "You should pay that...",
-      amount: 120,
-      created: 0 //date
-    }
-  ],
-  filters: {
-    text: "rent",
-    sortBy: "amount", //date or amount
-    startDate: undefined,
-    endDate: undefined
+// ADD_EXPENSE
+const addExpense = ({
+  description = "",
+  note = "",
+  amount = 0,
+  createdAt = 0 //date
+} = {}) => ({
+  type: "ADD_EXPENSE",
+  expense: {
+    id: uuid(),
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
+// REMOVE_EXPENSE
+const removeExpense = ({ id } = {}) => ({
+  type: "REMOVE_EXPENSE",
+  id
+});
+
+// EDIT_EXPENSE
+const editExpense = (id, updates) => ({
+  type: "EDIT_EXPENSE",
+  id,
+  updates
+});
+
+// SET_TEXT_FILTER
+// SORT_BY_DATE
+// SORT_BY_AMOUNT
+// SET_START_DATE
+// SET_END_DATE
+
+// Expenses reducer
+const expensesReducerDefaultState = [];
+
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    case "ADD_EXPENSE":
+      return [...state, action.expense];
+    case "REMOVE_EXPENSE":
+      return state.filter(({ id }) => id !== action.id);
+    case "EDIT_EXPENSE":
+      return state.map(expense => {
+        if (expense.id === action.id) {
+          return {
+            ...expense, //object spread operator
+            ...action.updates
+          };
+        }
+        return expense;
+      });
+    default:
+      return state;
   }
 };
+
+// Filters reducer
+const filtersReducerDefaultState = {
+  text: "",
+  sortBy: "date",
+  startDate: undefined,
+  endDate: undefined
+};
+
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+// Store creation
+const store = createStore(
+  combineReducers({
+    expenses: expensesReducer,
+    filters: filtersReducer
+  })
+);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+const expenseOne = store.dispatch(
+  addExpense({
+    description: "January rent",
+    note: "Pay that...",
+    amount: 200
+  })
+);
+const expenseTwo = store.dispatch(
+  addExpense({ description: "Bill", amount: 200 })
+);
+
+store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+store.dispatch(editExpense(expenseTwo.expense.id, { amount: 15000 }));

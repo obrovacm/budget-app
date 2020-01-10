@@ -56,7 +56,7 @@ const incrementCount = (value = 1) => {
 };
 incrementCount(9);
 
-// Tutorial EXAMPLE (passing an object)
+// Tutorial EXAMPLE (passing an object, so you know exactly witch Reducer is being used)
 // const incrementCount = ({ value = 1 } = {}) => ({
 //   type: "INCREMENT",
 //   value
