@@ -105,15 +105,33 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
 };
 
 // Get visible expenses
-const getVisibleExpenses = (expenses, {text, sortBy, startDate, endDate}) => {
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses
+    .filter(expense => {
+      const startDateMatch =
+        typeof startDate !== "number" || expense.createdAt >= startDate;
+      const endDateMatch =
+        typeof endDate !== "number" || expense.createdAt <= startDate;
+      const textMatchNote =
+        typeof text !== "string" ||
+        expense.note.toLowerCase().includes(text.toLowerCase());
+      const textMatchDescription =
+        typeof text !== "string" ||
+        expense.description.toLowerCase().includes(text.toLowerCase());
 
-  return expenses.filter((expense)=>{
-    const startDateMatch;
-    const endDateMatch;
-    const textMatch;
-
-    return startDateMatch && endDateMatch && textMatch;
-  });
+      return (
+        startDateMatch &&
+        endDateMatch &&
+        (textMatchNote || textMatchDescription)
+      );
+    })
+    .sort((a, b) => {
+      if (sortBy === "date") {
+        return a.createdAt < b.createdAt ? 1 : -1;
+      } else if (sortBy === "amount") {
+        return a.amount < b.amount ? 1 : -1;
+      }
+    });
 };
 
 // Store creation
@@ -124,29 +142,37 @@ const store = createStore(
   })
 );
 
-// Subscription (runs each time state is changed)
+// Subscription       (runs each time state is changed)
 store.subscribe(() => {
   const state = store.getState();
   const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
   console.log(visibleExpenses);
 });
 
+//========================================================================
+
 const expenseOne = store.dispatch(
   addExpense({
     description: "January rent",
     note: "Pay that...",
-    amount: 200
+    amount: 200,
+    createdAt: 1000
   })
 );
 const expenseTwo = store.dispatch(
-  addExpense({ description: "Bill", amount: 200 })
+  addExpense({
+    description: "Bill",
+    note: "kill him",
+    amount: 1000,
+    createdAt: 2000
+  })
 );
 
 // store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 // store.dispatch(editExpense(expenseTwo.expense.id, { amount: 15000 }));
-// store.dispatch(sortByAmount());
+store.dispatch(sortByAmount());
 // store.dispatch(sortByDate());
 
-// store.dispatch(setStartDate(123));
-// store.dispatch(setStartDate());
+// store.dispatch(setStartDate(125));
+// store.dispatch(setTextFilter("i"));
 // store.dispatch(setEndDate(255));

@@ -1,12 +1,56 @@
 import React from "react";
-
 import AppRouter from "./routers/AppRouter";
-import "./playground/redux-budget";
+import { Provider } from "react-redux";
+
+import configureStore from "./store/configureStore";
+import getVisibleExpenses from "./selectors/expenses";
+import { addExpense, removeExpense, editExpense } from "./actions/expenses";
+import {
+  sortByDate,
+  sortByAmount,
+  setTextFilter,
+  setStartDate,
+  setEndDate
+} from "./actions/filters";
+
+const store = configureStore();
+
+// Subscription       (runs each time state is changed)
+store.subscribe(() => {
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  // test logs
+  console.log("store subscription: visibleExpenses:", visibleExpenses);
+  console.log("store subscription: state.filters:", state.filters);
+});
+
+// ============================= test data
+const expenseOne = store.dispatch(
+  addExpense({
+    description: "Water bill",
+    note: "wash wash",
+    amount: 200,
+    createdAt: 1000
+  })
+);
+const expenseTwo = store.dispatch(
+  addExpense({
+    description: "Heating bill",
+    note: "it's pretty cold out there",
+    amount: 1000,
+    createdAt: 2000
+  })
+);
+store.dispatch(setTextFilter("bill"));
+store.dispatch(setTextFilter("water"));
+//===============================
 
 const App = () => {
   return (
     <div className="App">
-      <AppRouter />
+      <Provider store={store}>
+        <AppRouter />
+      </Provider>
     </div>
   );
 };
