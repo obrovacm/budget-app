@@ -10,7 +10,7 @@ const Header = () => (
       activeClassName="is-active"
       className="nav-link"
     >
-      home
+      dashboard
     </NavLink>
     <NavLink to="/create" activeClassName="is-active" className="nav-link">
       create
