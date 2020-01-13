@@ -5,7 +5,8 @@ import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 import getVisibleExpenses from "./selectors/expenses";
 
-import { addExpense, removeExpense, editExpense } from "./actions/expenses";
+//obrisati
+import { addExpense } from "./actions/expenses";
 
 const store = configureStore();
 
