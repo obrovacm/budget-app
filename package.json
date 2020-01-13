@@ -13,9 +13,11 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "moment": "^2.24.0",
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
+    "react-dates": "^21.5.1",
     "react-dom": "^16.12.0",
     "react-modal": "^3.11.1",
     "react-redux": "^7.1.3",

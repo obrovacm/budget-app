@@ -4,14 +4,8 @@ import { Provider } from "react-redux";
 
 import configureStore from "./store/configureStore";
 import getVisibleExpenses from "./selectors/expenses";
+
 import { addExpense, removeExpense, editExpense } from "./actions/expenses";
-import {
-  sortByDate,
-  sortByAmount,
-  setTextFilter,
-  setStartDate,
-  setEndDate
-} from "./actions/filters";
 
 const store = configureStore();
 
@@ -25,7 +19,7 @@ store.subscribe(() => {
 });
 
 // ============================= test data
-const expenseOne = store.dispatch(
+store.dispatch(
   addExpense({
     description: "Water bill",
     note: "wash wash",
@@ -33,7 +27,7 @@ const expenseOne = store.dispatch(
     createdAt: 1000
   })
 );
-const expenseTwo = store.dispatch(
+store.dispatch(
   addExpense({
     description: "Heating bill",
     note: "it's pretty cold out there",
@@ -41,8 +35,14 @@ const expenseTwo = store.dispatch(
     createdAt: 2000
   })
 );
-store.dispatch(setTextFilter("bill"));
-store.dispatch(setTextFilter("water"));
+store.dispatch(
+  addExpense({
+    description: "Rent",
+    note: "",
+    amount: 32000,
+    createdAt: -2000
+  })
+);
 //===============================
 
 const App = () => {

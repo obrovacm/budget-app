@@ -1,20 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import ExpenseListItem from "./ExpenseListItem";
+import selectExpenses from "../selectors/expenses";
+
 const ExpenseList = props => (
   <div>
-    <h3>Expense List</h3>
-    <p>{props.expenses.length}</p>
-    <p>{props.filters.text}</p>
+    <div>
+      {props.expenses.map(expense => (
+        <ExpenseListItem {...expense} key={expense.id} />
+      ))}
+    </div>
   </div>
 );
+// {...expense} spreads an object as props
 
-const mapStateProps = state => {
+const mapStateToProps = state => {
   return {
-    expenses: state.expenses,
-    filters: state.filters
+    expenses: selectExpenses(state.expenses, state.filters)
   };
 };
 
 //higher order component
-export default connect(mapStateProps)(ExpenseList);
+export default connect(mapStateToProps)(ExpenseList);
