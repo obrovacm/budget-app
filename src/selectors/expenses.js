@@ -26,6 +26,8 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
       // else if (sortBy === "amount") {
       //   return a.amount < b.amount ? 1 : -1;
       // }
+
+      // this way there's no 'default' return warning
       return a.amount < b.amount ? 1 : -1;
     });
 };

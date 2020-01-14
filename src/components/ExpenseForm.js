@@ -4,9 +4,6 @@ import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 
-const now = moment();
-console.log(now.format("YYYY.MM.DD. hh:mm"));
-
 export default class ExpenseForm extends Component {
   state = {
     description: "",
@@ -57,25 +54,30 @@ export default class ExpenseForm extends Component {
       message = "Error: Please provide description and amount.";
     } else {
       message = "Expense added.";
+      this.props.onSubmit({
+        description: this.state.description,
+        // converting string to float
+        amount: parseFloat(this.state.amount, 10),
+        // taking value in milliseconds (so it's possible to compare it)
+        createdAt: this.state.createdAt.valueOf(),
+        note: this.state.note
+      });
     }
+
     this.setState(() => ({
       submitMessage: message
     }));
-  };
-
-  renderSubmitMessage = () => {
     setTimeout(() => {
       this.setState(() => ({
         submitMessage: ""
       }));
     }, 3000);
-    return <p>{this.state.submitMessage}</p>;
   };
 
   render() {
     return (
       <div>
-        {!!this.submitMessage && this.renderSubmitMessage()}
+        {!!this.state.submitMessage && <p>{this.state.submitMessage}</p>}
         <form onSubmit={this.onSubmit}>
           <input
             type="text"
@@ -91,20 +93,22 @@ export default class ExpenseForm extends Component {
             onChange={this.onAmountChange}
           />
           <SingleDatePicker
-            date={this.state.createdAt} // momentPropTypes.momentObj or null
-            onDateChange={this.onDateChange} // PropTypes.func.isRequired
-            focused={this.state.calendarFocused} // PropTypes.bool
-            onFocusChange={this.onFocusChange} // PropTypes.func.isRequired
+            date={this.state.createdAt}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
             numberOfMonths={1}
+            firstDayOfWeek={1}
             isOutsideRange={() => false}
-            id="your_unique_id" // PropTypes.string.isRequired,
+            hideKeyboardShortcutsPanel={true}
+            displayFormat={"DD.MM.YYYY."}
           />
           <textarea
             placeholder="Add a note for your expense (optional)"
             value={this.state.note}
             onChange={this.onNoteChange}
           />
-          <button>Add Expense</button>
+          <button type="submit">Add Expense</button>
         </form>
       </div>
     );

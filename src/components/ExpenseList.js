@@ -5,12 +5,10 @@ import ExpenseListItem from "./ExpenseListItem";
 import selectExpenses from "../selectors/expenses";
 
 const ExpenseList = props => (
-  <div>
-    <div>
-      {props.expenses.map(expense => (
-        <ExpenseListItem {...expense} key={expense.id} />
-      ))}
-    </div>
+  <div className="expense-list">
+    {props.expenses.map(expense => (
+      <ExpenseListItem {...expense} key={expense.id} />
+    ))}
   </div>
 );
 // {...expense} spreads an object as props
