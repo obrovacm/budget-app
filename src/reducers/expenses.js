@@ -12,7 +12,7 @@ export default (state = expensesReducerDefaultState, action) => {
         if (expense.id === action.id) {
           return {
             ...expense, //object spread operator
-            ...action.updates
+            ...action.updatedExpense
           };
         }
         return expense;

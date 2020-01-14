@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import ExpenseForm from "./ExpenseForm";
 import { addExpense } from "../actions/expenses";
 
@@ -15,6 +16,7 @@ const AddExpensePage = props => (
         // redirects user to home page and also resets the form
         // since it's component will dismount
         props.history.push("/");
+        // this property is available only in components that ROUTER fires
       }}
     />
   </div>

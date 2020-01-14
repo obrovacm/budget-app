@@ -5,14 +5,17 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 
 export default class ExpenseForm extends Component {
-  state = {
-    description: "",
-    note: "",
-    amount: "",
-    createdAt: moment(),
-    calendarFocused: false,
-    submitMessage: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: props.expense ? props.expense.description : "",
+      note: props.expense ? props.expense.note : "",
+      amount: props.expense ? props.expense.amount.toString() : "",
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      calendarFocused: false,
+      submitMessage: ""
+    };
+  }
 
   onDescriptionChange = e => {
     const description = e.target.value;
@@ -36,7 +39,6 @@ export default class ExpenseForm extends Component {
       this.setState(() => ({
         createdAt
       }));
-      console.log("promena datuma:", createdAt.format("YYYY.MM.DD. hh:mm"));
     }
   };
 
@@ -67,11 +69,6 @@ export default class ExpenseForm extends Component {
     this.setState(() => ({
       submitMessage: message
     }));
-    setTimeout(() => {
-      this.setState(() => ({
-        submitMessage: ""
-      }));
-    }, 3000);
   };
 
   render() {
@@ -108,7 +105,7 @@ export default class ExpenseForm extends Component {
             value={this.state.note}
             onChange={this.onNoteChange}
           />
-          <button type="submit">Add Expense</button>
+          <button type="submit">Save Expense</button>
         </form>
       </div>
     );
