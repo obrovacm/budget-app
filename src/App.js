@@ -10,10 +10,10 @@ import { addExpense } from "./actions/expenses";
 const store = configureStore();
 
 // Subscription       (runs each time state is changed)
-store.subscribe(() => {
-  const state = store.getState();
-  console.log("store subscription: state.expenses:", state.expenses);
-});
+// store.subscribe(() => {
+//   const state = store.getState();
+//   console.log("store subscription: state.expenses:", state.expenses);
+// });
 
 // ============================= test data
 store.dispatch(

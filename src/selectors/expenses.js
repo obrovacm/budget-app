@@ -7,7 +7,7 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
       const createdMoment = moment(expense.createdAt);
 
       const startDateMatch = startDate
-        ? startDate.isSameOrAfter(createdMoment, "day")
+        ? startDate.isSameOrBefore(createdMoment, "day")
         : true;
       const endDateMatch = endDate
         ? endDate.isSameOrAfter(createdMoment, "day")
