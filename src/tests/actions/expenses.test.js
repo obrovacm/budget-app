@@ -5,15 +5,15 @@ test("should setup remove expense action object", () => {
   // .toEqual iterates through object
   expect(action).toEqual({
     type: "REMOVE_EXPENSE",
-    it: "123"
+    id: "123abc"
   });
 });
 
-// test("should setup edit expense action object", () => {
-//   const action = removeExpense({ id: "123abc" });
-//   // .toEqual iterates through object
-//   expect(action).toEqual({
-//     type: "REMOVE_EXPENSE",
-//     it: "123"
-//   });
-// });
+test("should setup edit expense action object", () => {
+  const action = removeExpense({ id: "123abc" });
+  // .toEqual iterates through object
+  expect(action).toEqual({
+    type: "REMOVE_EXPENSE",
+    id: "123abc"
+  });
+});
