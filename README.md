@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React https://facebook.github.io/create-react-app/docs/running-testsApp](https://github.com/facebook/create-react-app).
 
 ### `npm start`
 
@@ -62,3 +62,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+<hr/>
+Built with: react, redux, moment, react-dates (airbnb), jest, scss
