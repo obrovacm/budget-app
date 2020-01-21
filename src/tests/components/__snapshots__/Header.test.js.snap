@@ -5,20 +5,20 @@ exports[`should render Header correctly 1`] = `
   <h1>
     Budget app
   </h1>
-  <ForwardRef
+  <NavLink
     activeClassName="is-active"
     className="nav-link"
     exact={true}
     to="/"
   >
     Dashboard
-  </ForwardRef>
-  <ForwardRef
+  </NavLink>
+  <NavLink
     activeClassName="is-active"
     className="nav-link"
     to="/add-expense"
   >
     Add Expense
-  </ForwardRef>
+  </NavLink>
 </header>
 `;

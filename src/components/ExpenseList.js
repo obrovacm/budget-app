@@ -4,11 +4,16 @@ import { connect } from "react-redux";
 import ExpenseListItem from "./ExpenseListItem";
 import selectExpenses from "../selectors/expenses"; // Get visible/filtered expenses
 
-const ExpenseList = props => (
+// export without default is used for testing
+export const ExpenseList = props => (
   <div className="expense-list">
-    {props.expenses.map(expense => (
-      <ExpenseListItem {...expense} key={expense.id} />
-    ))}
+    {props.expenses.length === 0 ? (
+      <p>The list is empty.</p>
+    ) : (
+      props.expenses.map(expense => (
+        <ExpenseListItem {...expense} key={expense.id} />
+      ))
+    )}
   </div>
 );
 // {...expense} spreads an object as props
