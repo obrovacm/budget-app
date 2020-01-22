@@ -13,7 +13,7 @@ exports[`should render ExpenseListItem correctly 1`] = `
   <h5>
     $
      - 
-    21.01.2020.
+    01.01.1970.
   </h5>
   <p />
 </div>

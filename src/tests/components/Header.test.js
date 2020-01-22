@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow } from "enzyme";
-
 //// provides html without superfluous info
 // import toJSON from "enzyme-to-json";
 //// but import is not needed when you mention it in jes.config.json
