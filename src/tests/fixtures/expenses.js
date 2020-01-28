@@ -6,7 +6,7 @@ export default [
     id: "1",
     description: "first",
     note: "",
-    amount: 999999999,
+    amount: 9999,
     createdAt: moment(0)
       .subtract(4, "days")
       .valueOf()

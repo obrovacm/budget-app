@@ -5,7 +5,7 @@ exports[`should render ExpenseList with empty message 1`] = `
   className="expense-list"
 >
   <p>
-    The list is empty.
+    Go to the "Add Expense" section.
   </p>
 </div>
 `;
@@ -15,7 +15,7 @@ exports[`should render ExpenseList with expenses 1`] = `
   className="expense-list"
 >
   <ExpenseListItem
-    amount={999999999}
+    amount={9999}
     createdAt={-345600000}
     description="first"
     id="1"

@@ -8,7 +8,7 @@ import selectExpenses from "../selectors/expenses"; // Get visible/filtered expe
 export const ExpenseList = props => (
   <div className="expense-list">
     {props.expenses.length === 0 ? (
-      <p>The list is empty.</p>
+      <p>Go to the "Add Expense" section.</p>
     ) : (
       props.expenses.map(expense => (
         <ExpenseListItem {...expense} key={expense.id} />
@@ -18,11 +18,9 @@ export const ExpenseList = props => (
 );
 // {...expense} spreads an object as props
 
-const mapStateToProps = state => {
-  return {
-    expenses: selectExpenses(state.expenses, state.filters)
-  };
-};
+const mapStateToProps = state => ({
+  expenses: selectExpenses(state.expenses, state.filters)
+});
 
 //higher order component
 export default connect(mapStateToProps)(ExpenseList);
